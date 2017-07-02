@@ -18,7 +18,8 @@
         default-autowire="byName">
         <!--第一步：开启注解功能，并且进行项目扫描，加载service及其以下的注解类-->
   		<mvc:annotation-driven /> 
-  		<context:component-scan base-package="org.jiang.COC" />
+  		<context:component-scan base-package="org.jiang.COC.serviceImpl"/>
+  		<context:component-scan base-package="org.jiang.COC.daoImpl"/>
   		<!--第二步：首先添加jdbc资源文件，并配置datasource进行解析--><!-- 详见请滑至底端 -->
 		<context:property-placeholder location="classpath*:jdbc.properties" ignore-unresolvable="true"/>
 		<!--扫描到资源文件，进行datesource配置-->
@@ -64,7 +65,7 @@
 				<props>
 					<prop key="hibernate.current_session_context_class">org.springframework.orm.hibernate4.SpringSessionContext</prop>
 					<prop key="hibernate.dialect">${hibernate.dialect}</prop>
-					<prop key="hibernate.show_sql">${hibernate.show_sql}</prop>
+					 <prop key="hibernate.show_sql">${hibernate.show_sql}</prop>
 					<prop key="hibernate.format_sql">${hibernate.format_sql}</prop>
 					<prop key="hibernate.hbm2ddl.auto">${hibernate.hbm2ddl.auto}</prop>
 					
@@ -79,7 +80,7 @@
 		</bean>
 		<!--第五步：dao层针对事务的传播特性进行配置 ！！！扫描注解，方式二！！！-->
 		<tx:annotation-driven transaction-manager="transactionManager" proxy-target-class="true"/>
-	  		<!--第五步：service层针对事务的传播特性进行配置 ，为了让数据进行回滚，--><!--作用就是:比如A转钱给B中途发生异常，不能A钱少了，B却没增加钱。-->
+	  		<!-- 第五步：service层针对事务的传播特性进行配置 ，为了让数据进行回滚，作用就是:比如A转钱给B中途发生异常，不能A钱少了，B却没增加钱。 -->
 			<tx:advice id="txAdvice" transaction-manager="transactionManager">
 				<tx:attributes>
 					<tx:method name="*" />
@@ -95,9 +96,6 @@
 			</tx:advice>
 			<aop:config expose-proxy="true">
 				<aop:pointcut id="txpointcut" expression="execution(* org.jiang.CoC.serviceImpl..*.*(..))" />
-				<aop:advisor pointcut-ref="txpointcut" advice-ref="txAdvice" />
+				<aop:advisor pointcut-ref="txpointcut" advice-ref="txAdvice" />		
 			</aop:config>
-		
-      	
-
 </beans>

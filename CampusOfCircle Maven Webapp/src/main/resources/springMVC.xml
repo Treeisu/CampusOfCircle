@@ -18,6 +18,9 @@
         <!--第一步：开启注解功能，扫描Controller下的类，加载controller的注解类-->
 		<mvc:annotation-driven />
         <context:component-scan base-package="org.jiang.COC.controller" />
+        <!-- spring aop -->
+        <!-- <context:component-scan base-package="org.jiang.COC.aop" /> -->
+        <!-- <aop:aspectj-autoproxy expose-proxy="true"/> -->
         <!--第二步：进行前端页面资源过滤，引用静态资源这样在页面引入js、css等文件的路径填写js/test.js这样就好了-->
 		<mvc:resources location="/resources/js/" mapping="/js/**" />
 		<mvc:resources location="/resources/js/common" mapping="/js/common/**" />
@@ -47,5 +50,12 @@
 	            <bean class="org.jiang.COC.common.Intercepter1"></bean>  
 	        </mvc:interceptor>  
     	</mvc:interceptors>
-		
+    	 
+    	<bean id="aop1" class="org.jiang.COC.aop.AOP"></bean>
+    	<aop:config>
+    		<aop:aspect id="aspect1" ref="aop1">
+    			<aop:pointcut id="pointcut1" expression="execution(* org.jiang.COC.controller.PushInfoController.savepushInfo(..,String)) and args(..,content)"/>
+    			<aop:before method="before" pointcut-ref="pointcut1"/>
+    		</aop:aspect>
+    	</aop:config>
 </beans>

@@ -46,8 +46,11 @@ public class PushInfoController {
 	private AttentionServiceImpl attentionServiceImpl;
 		
 	@RequestMapping(value="/push")
-	public ModelAndView savepushInfo(ModelMap modelMap,HttpServletRequest request,HttpServletResponse response,MultipartHttpServletRequest muliRequest,
-						@RequestParam("content")String content){
+	public ModelAndView savepushInfo(ModelMap modelMap,
+									HttpServletRequest request,
+									HttpServletResponse response,
+									MultipartHttpServletRequest muliRequest,
+									String content){
 		 HttpSession session=request.getSession();
 		 User user=(User) session.getAttribute("user");
 		 //获得上传图片信息字段
