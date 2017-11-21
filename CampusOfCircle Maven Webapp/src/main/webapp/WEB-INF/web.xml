@@ -32,15 +32,11 @@
 	  <url-pattern>/*</url-pattern>
 	</filter-mapping>
 <!-- 过滤器设置编码 -->	
-	
-	
-	
-	
+		
   <servlet>
 		<servlet-name>springMVC</servlet-name>
-		<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
-      <load-on-startup>1</load-on-startup>	
-      <init-param>
+		<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>        
+        <init-param>
       		<!--其中<param-value>**.xml</param-value> 这里可以使用多种写法-->  
             <!--1、不写,使用默认值:/WEB-INF/<servlet-name>-servlet.xml-->  
             <!--2、<param-value>/WEB-INF/classes/dispatcher-servlet.xml</param-value>-->  
@@ -48,8 +44,9 @@
             <!--4、多个值用逗号分隔-->  
 			<param-name>contextConfigLocation</param-name>
 			<param-value>classpath*:springMVC.xml</param-value>
-	</init-param>	
- </servlet>
+	    </init-param>	
+	    <load-on-startup>1</load-on-startup>	
+  </servlet>
 <servlet-mapping>
 		<servlet-name>springMVC</servlet-name>
 		<url-pattern>/</url-pattern>
